@@ -6,8 +6,8 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <!--工具Bar部分内容-->
+	<string name="scan_text">扫啊扫</string>
+    <string name="message_text">消息</string>	<!--工具Bar部分内容-->
     <string name="bar_tools_my_focus">我的关注</string>
     <string name="bar_tools_express_query">物流查询</string>
     <string name="bar_tools_charge">充值</string>
@@ -15,6 +15,4 @@
     <string name="bar_tools_finance">惠赚钱</string>
     <string name="bar_tools_discount_ticket">优惠券</string>
     <string name="bar_tools_my_jd">领京豆</string>
-    <string name="bar_tools_all">全部</string>
-
-</resources>
+    <string name="bar_tools_all">全部</string></resources>
