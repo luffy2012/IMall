@@ -17,4 +17,6 @@ public class MallAdsViewPager extends ViewPager {
     public MallAdsViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
+    /*add test function*/
 }
