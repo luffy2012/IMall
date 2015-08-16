@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 /**
  * @email: genhaoai@gmail.com.
  * Created by wangs on 2015/8/16.
- * Description: 自定义首页广告切换栏
+ * Description: 棣栭〉鑷畾涔夊箍鍛婃爮
  */
 public class MallAdsViewPager extends ViewPager {
     public MallAdsViewPager(Context context) {
