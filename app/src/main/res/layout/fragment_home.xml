@@ -101,6 +101,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/viewpaper_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -108,8 +109,7 @@
                 <com.jn.sd.imall.widgets.MallAdsViewPager
                     android:id="@+id/home_mall_ads_view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_weight="1" />
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
                     android:id="@+id/viewGroup"
