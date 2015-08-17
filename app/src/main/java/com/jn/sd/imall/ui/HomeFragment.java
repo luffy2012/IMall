@@ -2,6 +2,8 @@ package com.jn.sd.imall.ui;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -15,6 +17,9 @@ import com.jn.sd.imall.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeListener{
@@ -30,6 +35,9 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
 
 
     private View mFirstView,mSencondView,mThirdView;
+
+    private ScheduledExecutorService mScheduledSer;//定时器，定时处理广告的切换操作
+    private int currentItem=(3) * 100;//当前
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,6 +101,16 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
         mViewPager.setCurrentItem((mImageViews.length) * 100);
 
 
+        mScheduledSer = Executors.newSingleThreadScheduledExecutor();
+        //通过定时器 来完成 每2秒钟切换一个图片
+        //经过指定的时间后，执行所指定的任务
+        //scheduleAtFixedRate(command, initialDelay, period, unit)
+        //command 所要执行的任务
+        //initialDelay 第一次启动时 延迟启动时间
+        //period  每间隔多次时间来重新启动任务
+        //unit 时间单位
+        mScheduledSer.scheduleAtFixedRate(new ViewPagerTask(), 1, 1, TimeUnit.SECONDS);
+
         return contactsLayout;
 
         /** add by wangss
@@ -127,6 +145,7 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
 
     @Override
     public void onPageSelected(int position) {
+        currentItem = position;
         setImageBackground(position % mImageViews.length);
     }
 
@@ -210,7 +229,26 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
         }
 
 
-
     }
+    private class ViewPagerTask implements Runnable{
+
+        public void run() {
+            //实现我们的操作
+            //改变当前页面
+            currentItem = (currentItem + 1) % mImageViews.length;
+            //Handler来实现图片切换
+            handler.obtainMessage().sendToTarget();
+        }
+    }
+    private Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            //设定viewPager当前页面
+            mViewPager.setCurrentItem(currentItem);
+        }
+    };
+
 
 }
+
