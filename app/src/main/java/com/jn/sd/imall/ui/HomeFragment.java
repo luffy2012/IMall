@@ -1,17 +1,22 @@
 package com.jn.sd.imall.ui;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.jn.sd.imall.R;
 
@@ -65,6 +70,21 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
         mViewPager = (ViewPager)contactsLayout.findViewById(R.id.home_mall_ads_view_pager);
         mViewPager.setAdapter(new AdsViewPagerAdapter(mList));*/
 
+
+        /***  动态指定ViewPaper的大小 start by luffy  **/
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Resources res = getResources();
+        Bitmap bm = BitmapFactory.decodeResource(res, R.drawable.bg_test);
+        int tempWidth = bm.getWidth();
+        int tempHeight = bm.getHeight();
+        RelativeLayout layout =  (RelativeLayout)contactsLayout.findViewById(R.id.viewpaper_layout);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layout.getLayoutParams();
+        params.height = (int) (tempHeight * ((double) dm.widthPixels / (double) tempWidth));
+        layout.setLayoutParams(params);
+        /***  动态指定ViewPaper的大小 end  by luffy  **/
+
+
         ViewGroup group = (ViewGroup)contactsLayout.findViewById(R.id.viewGroup);
         mViewPager = (ViewPager) contactsLayout.findViewById(R.id.home_mall_ads_view_pager);
 
@@ -110,6 +130,9 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
         //period  每间隔多次时间来重新启动任务
         //unit 时间单位
 //        mScheduledSer.scheduleAtFixedRate(new ViewPagerTask(), 1, 1, TimeUnit.SECONDS);
+
+
+
 
         return contactsLayout;
 
