@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
 
 
     private ImageView[] tips;
-    private ImageView[] mImageViews;
+    private ImageView[] mImageViews;//ViewPaper广告图片
     private int[] imgIdArray ;
 
 
@@ -107,6 +107,8 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
             group.addView(imageView, layoutParams);
         }
 
+
+        //初始化广告的图片
         mImageViews = new ImageView[imgIdArray.length];
         for(int i=0; i<mImageViews.length; i++){
             ImageView imageView = new ImageView(getActivity().getApplicationContext());
@@ -278,6 +280,8 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
             handler.sendMessage(message);
         }
     }
+
+
 
 
 
