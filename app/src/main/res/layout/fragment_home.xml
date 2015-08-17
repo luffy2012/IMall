@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/search_topbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/top_searchbar_background"
         android:gravity="center_vertical"
@@ -102,23 +102,9 @@
             <com.jn.sd.imall.widgets.MallAdsViewPager
                 android:id="@+id/home_mall_ads_view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
 
-                <LinearLayout
-                    android:id="@+id/viewGroup"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="30dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-                </LinearLayout>
-            </RelativeLayout>
+                android:layout_height="200dp"
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -319,6 +305,12 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/index_product_images_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/aliceblue"
+                android:orientation="horizontal" />
         </LinearLayout>
 
 
