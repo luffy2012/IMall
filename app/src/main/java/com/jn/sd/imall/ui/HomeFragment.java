@@ -74,8 +74,8 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
-            layoutParams.leftMargin = 5;
-            layoutParams.rightMargin = 5;
+            layoutParams.leftMargin = 1;
+            layoutParams.rightMargin = 1;
             group.addView(imageView, layoutParams);
         }
 
