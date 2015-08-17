@@ -94,14 +94,14 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
             imageView.setBackgroundResource(imgIdArray[i]);
         }
         //设置Adapter
-        mViewPager.setAdapter(new MyAdapter());
+        mViewPager.setAdapter(new AdsViewPagerAdapter());
         //设置监听，主要是设置点点的背景
         mViewPager.setOnPageChangeListener(this);
         //设置ViewPager的默认项, 设置为长度的100倍，这样子开始就能往左滑动
         mViewPager.setCurrentItem((mImageViews.length) * 100);
 
 
-        mScheduledSer = Executors.newSingleThreadScheduledExecutor();
+//        mScheduledSer = Executors.newSingleThreadScheduledExecutor();
         //通过定时器 来完成 每2秒钟切换一个图片
         //经过指定的时间后，执行所指定的任务
         //scheduleAtFixedRate(command, initialDelay, period, unit)
@@ -109,7 +109,7 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
         //initialDelay 第一次启动时 延迟启动时间
         //period  每间隔多次时间来重新启动任务
         //unit 时间单位
-        mScheduledSer.scheduleAtFixedRate(new ViewPagerTask(), 1, 1, TimeUnit.SECONDS);
+//        mScheduledSer.scheduleAtFixedRate(new ViewPagerTask(), 1, 1, TimeUnit.SECONDS);
 
         return contactsLayout;
 
@@ -153,11 +153,8 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
     public void onPageScrollStateChanged(int state) {
 
     }
-
     private void setImageBackground(int selectItems) {
-        Log.i("dd",selectItems+"");
         for(int i=0; i<tips.length; i++){
-
             if(i == selectItems){
                 tips[i].setBackgroundResource(R.drawable.page_indicator_focused);
             }else{
@@ -166,7 +163,7 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
         }
     }
 
-    private class AdsViewPagerAdapter extends PagerAdapter{
+    /*private class AdsViewPagerAdapter extends PagerAdapter{
 
         private List<View> mListViews;
 
@@ -194,9 +191,9 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
         public boolean isViewFromObject(View view, Object object) {
             return view==object;
         }
-    }
+    }*/
 
-    public class MyAdapter extends PagerAdapter{
+    public class AdsViewPagerAdapter extends PagerAdapter{
 
         @Override
         public int getCount() {
@@ -231,23 +228,34 @@ public class HomeFragment extends Fragment  implements ViewPager.OnPageChangeLis
 
     }
     private class ViewPagerTask implements Runnable{
+         Handler handler = new Handler(){
 
+            @Override
+            public void handleMessage(Message msg) {
+                //设定viewPager当前页面
+                switch (msg.what){
+                    case 1:
+                        mViewPager.setCurrentItem(currentItem);
+                        Log.i("bb",currentItem+"");
+                        break;
+
+                }
+
+            }
+        };
         public void run() {
             //实现我们的操作
             //改变当前页面
+            Log.i("aa",currentItem+"");
             currentItem = (currentItem + 1) % mImageViews.length;
+            Log.i("cc",currentItem+"");
             //Handler来实现图片切换
-            handler.obtainMessage().sendToTarget();
+            Message message = new Message();
+            message.what=1;
+            handler.sendMessage(message);
         }
     }
-    private Handler handler = new Handler(){
 
-        @Override
-        public void handleMessage(Message msg) {
-            //设定viewPager当前页面
-            mViewPager.setCurrentItem(currentItem);
-        }
-    };
 
 
 }
