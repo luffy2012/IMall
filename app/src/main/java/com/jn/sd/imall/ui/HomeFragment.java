@@ -34,6 +34,26 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View contactsLayout = inflater.inflate(R.layout.fragment_home,
+                container, false);
+
+        mFirstView = inflater.inflate(R.layout.home_ads_page_view_first,
+                container, false);
+        mSencondView = inflater.inflate(R.layout.home_ads_page_view_second,
+                container, false);
+        mThirdView = inflater.inflate(R.layout.home_ads_page_view_third,
+                container, false);
+        mList = new ArrayList<>(PAGE_SIZE);
+        mList.add(mFirstView);
+        mList.add(mSencondView);
+        mList.add(mThirdView);
+        mViewPager = (ViewPager)contactsLayout.findViewById(R.id.home_mall_ads_view_pager);
+        mViewPager.setAdapter(new AdsViewPagerAdapter(mList));
+
+        return contactsLayout;
+
+        /** add by wangss
         View contactsLayout = inflater.inflate(R.layout.home_tools_bar,
                 container, false);
 
@@ -51,6 +71,7 @@ public class HomeFragment extends Fragment {
         mViewPager.setAdapter(new AdsViewPagerAdapter(mList));
 
         return contactsLayout;
+         */
     }
 
     private void initViews(View view) {

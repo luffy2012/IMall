@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <com.jn.sd.imall.widgets.MallAdsViewPager
-        android:id="@+id/home_mall_ads_view_pager"
+        android:id="@+id/home_mall_ads_view_pager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
