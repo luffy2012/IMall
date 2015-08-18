@@ -243,24 +243,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     };
 
 
-//    private Handler mHandler = new Handler() {
-//        public void handleMessage(android.os.Message msg) {
-//            switch(msg.what) {
-//                case 1:
-//                    int totalcount = mViewPager.size();//autoChangeViewPager.getChildCount();
-//                    int currentItem = autoChangeViewPager.getCurrentItem();
-//
-//                    int toItem = currentItem + 1 == totalcount ? 0 : currentItem + 1;
-//
-//                    Log.i(TAG, "totalcount: " + totalcount + "   currentItem: " + currentItem + "   toItem: " + toItem);
-//
-//                    autoChangeViewPager.setCurrentItem(toItem, true);
-//
-//                    //每两秒钟发送一个message，用于切换viewPager中的图片
-//                    this.sendEmptyMessageDelayed(1, 2000);
-//            }
-//        }
-//    };
+
 
 
     private Handler mHandler = new Handler() {
