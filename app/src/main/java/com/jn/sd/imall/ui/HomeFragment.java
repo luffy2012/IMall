@@ -1,16 +1,14 @@
 package com.jn.sd.imall.ui;
 
+import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +20,6 @@ import com.jn.sd.imall.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class HomeFragment extends Fragment implements ViewPager.OnPageChangeListener {
@@ -33,10 +28,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     private ImageView[] tips;//圆点图标图片数组
     private List<View> mImageViews;//ViewPaper广告图片
     private int[] imgIdArray;//ViewPager广告图片资源ID
-
-//    private ScheduledExecutorService mScheduledSer;//定时器，定时处理广告的切换操作
-    private int currentItem = (3) * 100;//当前
-
 
     //用来指示当前显示图片所在位置
     private LinearLayout viewIndicator;
@@ -86,7 +77,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
 
         //初始化广告的图片
-        mImageViews  = new ArrayList<View>();
+        mImageViews = new ArrayList<>();
         for (int i = 0; i < imgIdArray.length; i++) {
             ImageView imageView = new ImageView(getActivity().getApplicationContext());
             mImageViews.add(imageView);
@@ -98,8 +89,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         mViewPager.setOnPageChangeListener(this);
         //设置ViewPager的默认项, 设置为长度的100倍，这样子开始就能往左滑动
 //        mViewPager.setCurrentItem((mImageViews.length) * 100);
-
-//        startTimerTask();
         return contactsLayout;
     }
 
@@ -117,18 +106,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         //停止viewPager中图片的自动切换
         mHandler.removeMessages(1);
     }
-    private void startTimerTask() {
-//                mScheduledSer = Executors.newSingleThreadScheduledExecutor();
-        //通过定时器 来完成 每2秒钟切换一个图片
-        //经过指定的时间后，执行所指定的任务
-        //scheduleAtFixedRate(command, initialDelay, period, unit)
-        //command 所要执行的任务
-        //initialDelay 第一次启动时 延迟启动时间
-        //period  每间隔多次时间来重新启动任务
-        //unit 时间单位
-//        mScheduledSer.scheduleAtFixedRate(new ViewPagerTask(), 1, 1, TimeUnit.SECONDS);
-
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -137,13 +114,13 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
     @Override
     public void onPageSelected(int position) {
-        currentItem = position;
-//        setImageBackground(position % mImageViews.length);
+
+        setImageBackground(position % mImageViews.size());
 
         int len = viewIndicator.getChildCount();
-        for(int i = 0; i < len; ++i)
+        for (int i = 0; i < len; ++i)
             viewIndicator.getChildAt(i).setBackgroundResource(R.drawable.page_indicator_unfocused);
-           viewIndicator.getChildAt(position).setBackgroundResource(R.drawable.page_indicator_focused);
+        viewIndicator.getChildAt(position).setBackgroundResource(R.drawable.page_indicator_focused);
     }
 
     @Override
@@ -210,45 +187,9 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
     }
 
-    private class ViewPagerTask implements Runnable {
-
-
-        public void run() {
-            //实现我们的操作
-            //改变当前页面
-            Log.i("aa", currentItem + "");
-//            currentItem = (currentItem + 1) % mImageViews.length;
-            Log.i("cc", currentItem + "");
-            //Handler来实现图片切换
-            Message message = new Message();
-            message.what = 1;
-            handler.sendMessage(message);
-        }
-    }
-
-    Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            //设定viewPager当前页面
-            switch (msg.what) {
-                case 1:
-                    mViewPager.setCurrentItem(currentItem);
-                    Log.i("bb", currentItem + "");
-                    break;
-
-            }
-
-        }
-    };
-
-
-
-
-
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            switch(msg.what) {
+            switch (msg.what) {
                 case 1:
                     int totalcount = mImageViews.size();//autoChangeViewPager.getChildCount();
                     int currentItem = mViewPager.getCurrentItem();
